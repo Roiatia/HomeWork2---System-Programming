@@ -8,12 +8,14 @@ private StockServer.Stock stock;
 private  StockServer server;
 private Random random = new Random();
 
+//constructor initializing threads with: name, stock type and server
 public StockView(String name, StockServer.Stock stock, StockServer server) {
     this.name = name;
     this.stock = stock;
     this.server = server;
 }
 
+//thread run method to get stock value every 1-3 seconds
 @Override
     public void run() {
         for(int i =0 ; i < 10; i++) {
