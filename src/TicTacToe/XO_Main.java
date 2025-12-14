@@ -15,12 +15,11 @@ public class XO_Main {
         Thread player1Thread;
         Thread player2Thread;
 
-        if(choice == 1 ) {
-            game = new SelfGame();
+        game = new SelfGame();
+        if(choice == 1) {
             player1Thread = new Thread(new SelfPlayer(game, PlayerType.X), "Self - x ");
             player2Thread = new Thread(new SelfPlayer(game, PlayerType.O), "Self - o ");
         } else {
-            game = new UserGame();
             player1Thread = new Thread(new UserPlayer(game, PlayerType.X, scanner), "User - x ");
             player2Thread = new Thread(new SelfPlayer(game, PlayerType.O), "Self - o ");
         }
@@ -34,7 +33,7 @@ public class XO_Main {
             player1Thread.join();
             player2Thread.join();
         } catch (InterruptedException e) {
-
+            System.out.println("ERROR: " + e);
         }
 
         PlayerType winner = game.getWinner();

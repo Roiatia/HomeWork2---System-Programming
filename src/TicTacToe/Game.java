@@ -15,6 +15,7 @@ public abstract class Game {
             for (int j = 0; j < 5; j++) {
                 System.out.print(gameBoard[i][j] = '-');
             }
+            System.out.println();
         }
         turn = PlayerType.X;
         gameOver = false;
@@ -122,7 +123,7 @@ public abstract class Game {
                     if(gameBoard[r][c] == ch &&
                         gameBoard[r][c + 1] == ch &&
                     gameBoard[r][c + 2] == ch &&
-                    gameBoard[r][c + 3] == ch &&) {
+                    gameBoard[r][c + 3] == ch) {
                         return true; // Horizontal win
                     }
                 }
