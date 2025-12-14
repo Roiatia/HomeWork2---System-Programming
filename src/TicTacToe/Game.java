@@ -56,23 +56,47 @@ public abstract class Game {
         return winner;
     }
 
+    public void printDuplicatedChar(char c, int times, boolean newLine)
+    {
+        String out = "";
+        for(int i = 0; i < times; i++)
+            out += c;
+        if(newLine)
+            out += '\n';
+        System.out.print(out);
+    }
+
     //print the game board
-    public synchronized void printBoard() {
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                System.out.print(gameBoard[i][j] + "-");
-                if(i < SIZE - 1 ) System.out.print(" | ");
+    final int MAX_LINE_LEN = ("| - | - | - | - | - |".length()); // Usually the blank line
+    static int ROUND = 1;
+    public synchronized void printBoard()
+    {
+        String round_str = "[ROUND " + (ROUND++) + "]";
+        int round_len = (MAX_LINE_LEN - round_str.length()) / 2;
+        int round_len_delta = ((MAX_LINE_LEN - round_len) / 2) - 1;
+
+        printDuplicatedChar('_', round_len, false);
+        System.out.print(round_str);
+        printDuplicatedChar('_', round_len_delta, true);
+
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                if(j == 0)
+                    System.out.print("| ");
+
+                String curr_choice = gameBoard[i][j];
+                System.out.print(curr_choice != null ? curr_choice : "-");
+
+                System.out.print(" | ");
             }
             System.out.println();
-            if(i < SIZE - 1 ) {
-                for (int k = 0; k < SIZE; k++) {
-                    System.out.print("----");
-                    if (k < SIZE - 1) System.out.print("+");
-                }
-                System.out.println();
-            }
+            if(i < SIZE - 1)
+                printDuplicatedChar('-', MAX_LINE_LEN, true);
         }
-        System.out.println();
+
+        printDuplicatedChar('‾', MAX_LINE_LEN, true);
     }
 
     //
