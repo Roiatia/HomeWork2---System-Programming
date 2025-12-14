@@ -1,14 +1,16 @@
 package TicTacToe;
 import java.util.ArrayList;
 
-public abstract class Game {
+public abstract class Game
+{
     protected final char[][] gameBoard; // 5x5 board
     protected PlayerType turn; // Current player's turn
     protected boolean gameOver; // Flag to indicate if the game is over
     protected PlayerType winner; // Winner of the game
 
     // Constructor to initialize the game board
-    public Game() {
+    public Game()
+    {
         gameBoard = new char[5][5];
         // Initialize the board with empty cells
         for (int i = 0; i < 5; i++) {
@@ -23,12 +25,11 @@ public abstract class Game {
     }
 
     // Method to get the current player's turn
-    public synchronized PlayerType getTurn() {
-        return turn;
-    }
+    public synchronized PlayerType getTurn() { return turn; }
 
     // Method to get the list of available cells
-    public synchronized ArrayList<Cell> getAvailableCells() {
+    public synchronized ArrayList<Cell> getAvailableCells()
+    {
         ArrayList<Cell> availableCells = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
@@ -88,7 +89,7 @@ public abstract class Game {
         printBoard();
 
         //check for win
-        if(hasWon(player)){
+        if(hasWon(player)) {
             winner = player;
             gameOver = true;
             notifyAll();
@@ -115,53 +116,55 @@ public abstract class Game {
         return r >= 0 && r < 5 && c >=0 && c < 5;
     }
 
-    public boolean hasWon(PlayerType p) {
+    public boolean hasWon(PlayerType p)
+    {
         char ch = (p == PlayerType.X) ? 'X' : 'O';
 
-            for(int r = 0; r < 5; r++) {
-                for (int c = 0; c < 5; c++) {
-                    if(gameBoard[r][c] == ch &&
-                        gameBoard[r][c + 1] == ch &&
-                    gameBoard[r][c + 2] == ch &&
-                    gameBoard[r][c + 3] == ch) {
+        for(int r = 0; r < 5; r++) {
+            for (int c = 0; c <= 1; c++) {
+                if(gameBoard[r][c] == ch &&
+                   gameBoard[r][c + 1] == ch &&
+                   gameBoard[r][c + 2] == ch &&
+                   gameBoard[r][c + 3] == ch) {
                         return true; // Horizontal win
-                    }
                 }
             }
+        }
 
-            for(int c = 0; c < 5; c++) {
-                for (int r = 0; r < 5; r++) {
-                    if(gameBoard[r][c] == ch &&
-                        gameBoard[r + 1][c] == ch &&
+        for(int c = 0; c < 5; c++) {
+            for (int r = 0; r <= 1; r++) {
+                if(gameBoard[r][c] == ch &&
+                    gameBoard[r + 1][c] == ch &&
                     gameBoard[r + 2][c] == ch &&
                     gameBoard[r + 3][c] == ch ) {
                         return true; // Vertical win
-                    }
                 }
             }
+        }
 
-            for (int r = 0; r <= 1; r++) {
-                for (int c = 0; c < 5; c++) {
-                    if (gameBoard[r][c] == ch &&
-                        gameBoard[r + 1][c + 1] == ch &&
-                        gameBoard[r + 2][c + 2] == ch &&
-                        gameBoard[r + 3][c + 3] == ch) {
+        for (int r = 0; r <= 1; r++) {
+            for (int c = 0; c <= 1; c++) {
+                if (gameBoard[r][c] == ch &&
+                    gameBoard[r + 1][c + 1] == ch &&
+                    gameBoard[r + 2][c + 2] == ch &&
+                    gameBoard[r + 3][c + 3] == ch) {
                         return true; // Diagonal win (top-left to bottom-right)
-                    }
                 }
             }
+        }
 
-            for (int r = 0; r <= 1; r++) {
-                for (int c = 3; c < 5; c++) {
-                    if (gameBoard[r][c] == ch &&
-                        gameBoard[r + 1][c - 1] == ch &&
-                        gameBoard[r + 2][c - 2] == ch &&
-                        gameBoard[r + 3][c - 3] == ch) {
+        for (int r = 0; r <= 1; r++) {
+            for (int c = 3; c < 5; c++) {
+                if (gameBoard[r][c] == ch &&
+                    gameBoard[r + 1][c - 1] == ch &&
+                    gameBoard[r + 2][c - 2] == ch &&
+                    gameBoard[r + 3][c - 3] == ch) {
                         return true; // Diagonal win (top-right to bottom-left)
-                    }
                 }
             }
-            return false; // No win found
+        }
 
+        return false; // No win found
     }
+
 }

@@ -1,6 +1,6 @@
 package TicTacToe;
 
-public abstract class Player implements Runnable{
+public abstract class Player implements Runnable  {
     protected final Game game;
     protected final PlayerType type;
 
@@ -8,6 +8,4 @@ public abstract class Player implements Runnable{
         this.game = game;
         this.type = type;
     }
-
-
 }

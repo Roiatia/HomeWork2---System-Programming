@@ -12,28 +12,35 @@ public class SelfPlayer extends Player {
     }
 
     @Override
-    public void run() {
-        while(!game.isGameOver()) {
-            try {
+    public void run()
+    {
+        while(!game.isGameOver())
+        {
+            try
+            {
                 Thread.sleep(500);
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e) {
                 return;
             }
-        if(game.isGameOver()) {
-            return;
-        }
-        if(game.getTurn() != type) {
-            continue;
-        }
 
-        ArrayList<Cell> freeCells = game.getAvailableCells();
-        if(freeCells.isEmpty()) {
-            System.out.println("No available moves left!");
-            return;
-        }
-        int index = random.nextInt(freeCells.size());
-        Cell chosenCell = freeCells.get(index);
-        game.tryMove(type, chosenCell.getRow(), chosenCell.getCol());
+            if(game.isGameOver()) {
+                return;
+            }
+
+            if(game.getTurn() != type) {
+                continue;
+            }
+
+            ArrayList<Cell> freeCells = game.getAvailableCells();
+            if(freeCells.isEmpty()) {
+                System.out.println("No available moves left!");
+                return;
+            }
+
+            int index = random.nextInt(freeCells.size());
+            Cell chosenCell = freeCells.get(index);
+            game.tryMove(type, chosenCell.getRow(), chosenCell.getCol());
         }
     }
 }

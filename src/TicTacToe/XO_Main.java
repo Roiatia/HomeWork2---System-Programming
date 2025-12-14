@@ -1,8 +1,9 @@
 package TicTacToe;
 import java.util.Scanner;
 
-public class XO_Main {
-    public static void main(String[] args) {
+public class XO_Main  {
+    public static void main(String[] args)
+    {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Choose game version:");
@@ -16,7 +17,7 @@ public class XO_Main {
         Thread player2Thread;
 
         game = new SelfGame();
-        if(choice == 1) {
+        if (choice == 1) {
             player1Thread = new Thread(new SelfPlayer(game, PlayerType.X), "Self - x ");
             player2Thread = new Thread(new SelfPlayer(game, PlayerType.O), "Self - o ");
         } else {
@@ -42,6 +43,6 @@ public class XO_Main {
         } else {
             System.out.println("It's a draw!");
         }
-
     }
+
 }
