@@ -10,17 +10,15 @@ public abstract class Game {
     protected PlayerType winner; // Winner of the game
 
     // Constructor to initialize the game board
-    public Game()
-    {
+    public Game() {
         gameBoard = new String[SIZE][SIZE];
         // Initialize the board with empty cells
-        for (int i = 0; i < SIZE; i++) {
+         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                System.out.print(gameBoard[i][j] = "-");
+               gameBoard[i][j] = "-";
             }
-            System.out.println();
         }
-        turn = PlayerType.X;
+       turn = PlayerType.X;
         gameOver = false;
         winner = null;
     }
