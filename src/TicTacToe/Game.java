@@ -13,6 +13,7 @@ public abstract class Game {
     public Game() {
         gameBoard = new String[SIZE][SIZE];
         // Initialize the board with empty cells
+        //fixed the printing twice problem when initializing
          for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                gameBoard[i][j] = "-";
