@@ -72,12 +72,13 @@ public abstract class Game {
     public synchronized void printBoard()
     {
         String round_str = "[ROUND " + (ROUND++) + "]";
-        int round_len = (MAX_LINE_LEN - round_str.length()) / 2;
-        int round_len_delta = ((MAX_LINE_LEN - round_len) / 2) - 1;
+        int padding = (MAX_LINE_LEN - round_str.length());
+        int left_side = padding / 2;
+        int right_side = padding - left_side;
 
-        printDuplicatedChar('_', round_len, false);
+        printDuplicatedChar('_', left_side, false);
         System.out.print(round_str);
-        printDuplicatedChar('_', round_len_delta, true);
+        printDuplicatedChar('_', right_side, true);
 
         for (int i = 0; i < SIZE; i++)
         {
