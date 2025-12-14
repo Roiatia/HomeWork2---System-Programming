@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public abstract class Game
 {
-    protected final char[][] gameBoard; // 5x5 board
+    protected final String[][] gameBoard; // 5x5 board
     protected PlayerType turn; // Current player's turn
     protected boolean gameOver; // Flag to indicate if the game is over
     protected PlayerType winner; // Winner of the game
@@ -11,11 +11,11 @@ public abstract class Game
     // Constructor to initialize the game board
     public Game()
     {
-        gameBoard = new char[5][5];
+        gameBoard = new String[5][5];
         // Initialize the board with empty cells
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                System.out.print(gameBoard[i][j] = '-');
+                System.out.print(gameBoard[i][j] = "-");
             }
             System.out.println();
         }
@@ -33,7 +33,7 @@ public abstract class Game
         ArrayList<Cell> availableCells = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                if (gameBoard[i][j] == '-') {
+                if (gameBoard[i][j] == "-") {
                     availableCells.add(new Cell(i, j));
                 }
             }
@@ -60,7 +60,7 @@ public abstract class Game
     public synchronized void printBoard() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                System.out.print(gameBoard[i][j] + '-');
+                System.out.print(gameBoard[i][j] + "-");
             }
             System.out.println();
         }
@@ -78,13 +78,13 @@ public abstract class Game
         if (!isInBounds(row, col)) {
             return false; // Move is out of bounds
         }
-        if (gameBoard[row][col] != '-') {
+        if (gameBoard[row][col] != " - ") {
             return false; // Cell is already occupied
         }
         if (player == PlayerType.X) {
-            gameBoard[row][col] = 'X';
+            gameBoard[row][col] = "X";
         } else {
-            gameBoard[row][col] = 'O';
+            gameBoard[row][col] = "O";
         }
         printBoard();
 
@@ -118,14 +118,19 @@ public abstract class Game
 
     public boolean hasWon(PlayerType p)
     {
-        char ch = (p == PlayerType.X) ? 'X' : 'O';
+        String str;
+        if(p == PlayerType.X) {
+            str = "X";
+        } else {
+            str = "O";
+        }
 
         for(int r = 0; r < 5; r++) {
             for (int c = 0; c <= 1; c++) {
-                if(gameBoard[r][c] == ch &&
-                   gameBoard[r][c + 1] == ch &&
-                   gameBoard[r][c + 2] == ch &&
-                   gameBoard[r][c + 3] == ch) {
+                if(gameBoard[r][c] == str &&
+                   gameBoard[r][c + 1] == str &&
+                   gameBoard[r][c + 2] == str &&
+                   gameBoard[r][c + 3] == str) {
                         return true; // Horizontal win
                 }
             }
@@ -133,10 +138,10 @@ public abstract class Game
 
         for(int c = 0; c < 5; c++) {
             for (int r = 0; r <= 1; r++) {
-                if(gameBoard[r][c] == ch &&
-                    gameBoard[r + 1][c] == ch &&
-                    gameBoard[r + 2][c] == ch &&
-                    gameBoard[r + 3][c] == ch ) {
+                if(gameBoard[r][c] == str &&
+                    gameBoard[r + 1][c] == str &&
+                    gameBoard[r + 2][c] == str &&
+                    gameBoard[r + 3][c] == str ) {
                         return true; // Vertical win
                 }
             }
@@ -144,10 +149,10 @@ public abstract class Game
 
         for (int r = 0; r <= 1; r++) {
             for (int c = 0; c <= 1; c++) {
-                if (gameBoard[r][c] == ch &&
-                    gameBoard[r + 1][c + 1] == ch &&
-                    gameBoard[r + 2][c + 2] == ch &&
-                    gameBoard[r + 3][c + 3] == ch) {
+                if (gameBoard[r][c] == str &&
+                    gameBoard[r + 1][c + 1] == str &&
+                    gameBoard[r + 2][c + 2] == str &&
+                    gameBoard[r + 3][c + 3] == str) {
                         return true; // Diagonal win (top-left to bottom-right)
                 }
             }
@@ -155,10 +160,10 @@ public abstract class Game
 
         for (int r = 0; r <= 1; r++) {
             for (int c = 3; c < 5; c++) {
-                if (gameBoard[r][c] == ch &&
-                    gameBoard[r + 1][c - 1] == ch &&
-                    gameBoard[r + 2][c - 2] == ch &&
-                    gameBoard[r + 3][c - 3] == ch) {
+                if (gameBoard[r][c] == str &&
+                    gameBoard[r + 1][c - 1] == str &&
+                    gameBoard[r + 2][c - 2] == str &&
+                    gameBoard[r + 3][c - 3] == str) {
                         return true; // Diagonal win (top-right to bottom-left)
                 }
             }
