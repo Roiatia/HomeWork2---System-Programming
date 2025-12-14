@@ -179,7 +179,7 @@ public abstract class Game {
             }
         }
 
-        for (int r = 0; r <= SIZE; r++) {
+        for (int r = 0; r <= SIZE - 4; r++) {
             for (int c = 0; c <= SIZE - 4 ; c++) {
                 if (gameBoard[r][c].equals(str) &&
                     gameBoard[r + 1][c + 1].equals(str) &&
@@ -191,11 +191,11 @@ public abstract class Game {
         }
 
         for (int r = 0; r <= SIZE - 4; r++) {
-            for (int c = 0; c <= SIZE - 4; c++) {
+            for (int c = 3; c < SIZE; c++) {
                 if (gameBoard[r][c].equals(str) &&
-                    gameBoard[r + 1][c + 1].equals(str) &&
-                    gameBoard[r + 2][c + 2].equals(str) &&
-                    gameBoard[r + 3][c + 3].equals(str)) {
+                    gameBoard[r + 1][c - 1].equals(str) &&
+                    gameBoard[r + 2][c - 2].equals(str) &&
+                    gameBoard[r + 3][c - 3].equals(str)) {
                         return true; // Diagonal win (top-right to bottom-left)
                 }
             }
