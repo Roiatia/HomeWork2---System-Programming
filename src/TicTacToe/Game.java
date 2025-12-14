@@ -1,8 +1,9 @@
 package TicTacToe;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public abstract class Game
-{
+public abstract class Game {
+    protected static final int SIZE = 5; // Board size
     protected final String[][] gameBoard; // 5x5 board
     protected PlayerType turn; // Current player's turn
     protected boolean gameOver; // Flag to indicate if the game is over
@@ -11,10 +12,10 @@ public abstract class Game
     // Constructor to initialize the game board
     public Game()
     {
-        gameBoard = new String[5][5];
+        gameBoard = new String[SIZE][SIZE];
         // Initialize the board with empty cells
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 System.out.print(gameBoard[i][j] = "-");
             }
             System.out.println();
@@ -31,9 +32,9 @@ public abstract class Game
     public synchronized ArrayList<Cell> getAvailableCells()
     {
         ArrayList<Cell> availableCells = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                if (gameBoard[i][j] == "-") {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (gameBoard[i][j].equals("-")) {
                     availableCells.add(new Cell(i, j));
                 }
             }
@@ -58,11 +59,19 @@ public abstract class Game
 
     //print the game board
     public synchronized void printBoard() {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
                 System.out.print(gameBoard[i][j] + "-");
+                if(i < SIZE - 1 ) System.out.print(" | ");
             }
             System.out.println();
+            if(i < SIZE - 1 ) {
+                for (int k = 0; k < SIZE; k++) {
+                    System.out.print("----");
+                    if (k < SIZE - 1) System.out.print("+");
+                }
+                System.out.println();
+            }
         }
         System.out.println();
     }
@@ -78,7 +87,7 @@ public abstract class Game
         if (!isInBounds(row, col)) {
             return false; // Move is out of bounds
         }
-        if (gameBoard[row][col] != " - ") {
+        if (!Objects.equals(gameBoard[row][col], "-")) {
             return false; // Cell is already occupied
         }
         if (player == PlayerType.X) {
@@ -113,7 +122,7 @@ public abstract class Game
 
 
     public boolean isInBounds(int r , int c) {
-        return r >= 0 && r < 5 && c >=0 && c < 5;
+        return r >= 0 && r < SIZE && c >=0 && c < SIZE;
     }
 
     public boolean hasWon(PlayerType p)
@@ -125,45 +134,45 @@ public abstract class Game
             str = "O";
         }
 
-        for(int r = 0; r < 5; r++) {
-            for (int c = 0; c <= 1; c++) {
-                if(gameBoard[r][c] == str &&
-                   gameBoard[r][c + 1] == str &&
-                   gameBoard[r][c + 2] == str &&
-                   gameBoard[r][c + 3] == str) {
+        for(int r = 0; r < SIZE; r++) {
+            for (int c = 0; c <= SIZE - 4; c++) {
+                if(gameBoard[r][c].equals(str) &&
+                   gameBoard[r][c + 1].equals(str) &&
+                   gameBoard[r][c + 2].equals(str) &&
+                   gameBoard[r][c + 3].equals(str)) {
                         return true; // Horizontal win
                 }
             }
         }
 
-        for(int c = 0; c < 5; c++) {
-            for (int r = 0; r <= 1; r++) {
-                if(gameBoard[r][c] == str &&
-                    gameBoard[r + 1][c] == str &&
-                    gameBoard[r + 2][c] == str &&
-                    gameBoard[r + 3][c] == str ) {
+        for(int c = 0; c < SIZE; c++) {
+            for (int r = 0; r <= SIZE - 4; r++) {
+                if(gameBoard[r][c].equals(str) &&
+                    gameBoard[r + 1][c].equals(str) &&
+                    gameBoard[r + 2][c].equals(str) &&
+                    gameBoard[r + 3][c].equals(str)) {
                         return true; // Vertical win
                 }
             }
         }
 
-        for (int r = 0; r <= 1; r++) {
-            for (int c = 0; c <= 1; c++) {
-                if (gameBoard[r][c] == str &&
-                    gameBoard[r + 1][c + 1] == str &&
-                    gameBoard[r + 2][c + 2] == str &&
-                    gameBoard[r + 3][c + 3] == str) {
+        for (int r = 0; r <= SIZE; r++) {
+            for (int c = 0; c <= SIZE - 4 ; c++) {
+                if (gameBoard[r][c].equals(str) &&
+                    gameBoard[r + 1][c + 1].equals(str) &&
+                    gameBoard[r + 2][c + 2].equals(str) &&
+                    gameBoard[r + 3][c + 3].equals(str)) {
                         return true; // Diagonal win (top-left to bottom-right)
                 }
             }
         }
 
-        for (int r = 0; r <= 1; r++) {
-            for (int c = 3; c < 5; c++) {
-                if (gameBoard[r][c] == str &&
-                    gameBoard[r + 1][c - 1] == str &&
-                    gameBoard[r + 2][c - 2] == str &&
-                    gameBoard[r + 3][c - 3] == str) {
+        for (int r = 0; r <= SIZE - 4; r++) {
+            for (int c = 0; c <= SIZE - 4; c++) {
+                if (gameBoard[r][c].equals(str) &&
+                    gameBoard[r + 1][c + 1].equals(str) &&
+                    gameBoard[r + 2][c + 2].equals(str) &&
+                    gameBoard[r + 3][c + 3].equals(str)) {
                         return true; // Diagonal win (top-right to bottom-left)
                 }
             }
