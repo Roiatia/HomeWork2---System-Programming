@@ -1,6 +1,11 @@
-## Assignment 3 ##
+## Assignment 2 ##
 
-This repository contains Assignment 3 written in Java.
+This repository contains Assignment 2 written in Java.
+including 3 parts :
+1. Stocks
+2. Race
+3. TicTacToe
+
 
 Authors: Bar Afuta && Roi Atia
 
